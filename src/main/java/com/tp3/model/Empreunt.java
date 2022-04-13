@@ -19,15 +19,17 @@ public class Empreunt {
     private LocalDate dateFin;
     private String status;
 
-    public Empreunt(Client user , Document document , LocalDate dateDebut, LocalDate dateFin, String status) {
+    public Empreunt(Client user , Document document , LocalDate dateFin, String status) {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.status = status;
+        this.dateDebut = LocalDate.now();
     }
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "fk_document")
     private Document document;
+
 
     public void addDocumentToEmpreunt(Document document){ this.document = document; }
 

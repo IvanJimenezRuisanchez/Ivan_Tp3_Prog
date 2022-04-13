@@ -14,7 +14,7 @@ public class Cd extends Document {
     private String duration;
     private String type;
 
-    public Cd(String titre, int anneePub, String auteur, long nbrExemplaire, String duration, String type) {
+    public Cd(String titre, int anneePub, String auteur, int nbrExemplaire, String duration, String type) {
         super(titre, anneePub, auteur, nbrExemplaire);
         this.duration = duration;
         this.type = type;

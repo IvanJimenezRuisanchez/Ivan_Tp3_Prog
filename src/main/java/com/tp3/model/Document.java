@@ -1,8 +1,8 @@
 package com.tp3.model;
 
+import com.tp3.dto.document.DocumentDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -18,12 +18,13 @@ public class Document {
     private String titre;
     private int anneePublication;
     private String auteur;
-    private long nbrExemplaire;
+    private int nbrExemplaire;
 
-    public Document(String titre, int anneePub, String auteur, long nbrExemplaire) {
+    public Document(String titre, int anneePub, String auteur, int nbrExemplaire) {
         this.titre = titre;
         this.anneePublication = anneePub;
         this.auteur = auteur;
         this.nbrExemplaire = nbrExemplaire;
     }
+
 }

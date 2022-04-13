@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
+    <title>CRUD Prof</title>
+</head>
+<body>
+<form action="#" th:action="@{/ajoutDocument}" th:object="${document}"  method="post">
+    <table border="1">
+        <tr>
+            <h1>Livre</h1>
+        </tr>
+        <tr>
+            <td><label>Titre:</label></td>
+            <td><input type="text" th:field="*{titre}"/></td>
+        </tr>
+        <tr>
+            <td><label>Annee De Publication:</label></td>
+            <td><input type="number" th:field="*{anneePublication}"/></td>
+        </tr>
+        <tr>
+            <td><label>Auteur:</label></td>
+            <td><input type="text" th:field="*{auteur}"/></td>
+        </tr>
+        <tr>
+            <td><label>Nombre d'examplaires:</label></td>
+            <td><input type="number" th:field="*{nbrExemplaire}"/></td>
+        </tr>
+        <tr>
+            <td><label>Editeur:</label></td>
+            <td><input type="text" th:field="*{editeur}"/></td>
+        </tr>
+        <tr>
+            <td><label>Maison de Publication:</label></td>
+            <td><input type="text" th:field="*{maisonDePublication}"/></td>
+        </tr>
+        <tr>
+            <td><label>Type:</label></td>
+            <td><input type="text" th:field="*{type}"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="CREER" /></td>
+        </tr>
+    </table>
+</form>
+<script>
+    function submitForm() {
+        var frm = document.getElementsByName('contact-form')[0];
+        frm.submit();
+        frm.reset();
+        return false;
+    }
+</script>
+</body>
+</html>
