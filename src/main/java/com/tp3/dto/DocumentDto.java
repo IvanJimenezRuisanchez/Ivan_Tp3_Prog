@@ -1,4 +1,4 @@
-package com.tp3.dto.document;
+package com.tp3.dto;
 
 import com.tp3.model.Cd;
 import com.tp3.model.Dvd;

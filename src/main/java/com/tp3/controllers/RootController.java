@@ -1,6 +1,7 @@
 package com.tp3.controllers;
 
-import com.tp3.dto.document.DocumentDto;
+import com.tp3.dto.ClientDto;
+import com.tp3.dto.DocumentDto;
 import com.tp3.service.ServiceAdmin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-
-import java.util.Locale;
 
 @Controller
 public class RootController {
@@ -34,7 +33,7 @@ public class RootController {
         return "/choixdocument";
     }
 
-    @GetMapping(value={ "/ajoutDocument"})
+    @GetMapping(value={ "/ajoutdocument"})
     public String getAjoutDocument(Model model, @ModelAttribute("choix") String choix, @ModelAttribute("document") DocumentDto documentDto) {
         choixTypeDocument = choix.toString();
         switch (choix){
@@ -50,8 +49,8 @@ public class RootController {
     }
 
 
-    @PostMapping(value = { "/ajoutDocument"})
-    public RedirectView profPost(@ModelAttribute(value = "document") DocumentDto documentDto,
+    @PostMapping(value = { "/ajoutdocument"})
+    public RedirectView postDocument(@ModelAttribute(value = "document") DocumentDto documentDto,
                                  BindingResult errors,
                                  RedirectAttributes redirectAttributes) {
         var document = serviceAdmin.addDocumentToBiblio(documentDto.getTitre(),documentDto.getAnneePublication(),
@@ -61,6 +60,25 @@ public class RootController {
         RedirectView redirectView = new RedirectView();
         redirectView.setContextRelative(true);
         redirectView.setUrl("/choixdocument");
+        return redirectView;
+    }
+
+    @GetMapping(value={ "/ajoutclient"})
+    public String getAjoutClient(Model model) {
+        model.addAttribute("client", new ClientDto());
+        return "/client";
+    }
+
+
+    @PostMapping(value = { "/ajoutclient"})
+    public RedirectView postClient(@ModelAttribute(value = "client") ClientDto clientDto,
+                                 BindingResult errors,
+                                 RedirectAttributes redirectAttributes) {
+        var document = serviceAdmin.addClient(clientDto.getFirstName(),clientDto.getLastName(),
+                clientDto.getAddress(),clientDto.getPhoneNumber(),clientDto.getEmail());
+        RedirectView redirectView = new RedirectView();
+        redirectView.setContextRelative(true);
+        redirectView.setUrl("/");
         return redirectView;
     }
 }

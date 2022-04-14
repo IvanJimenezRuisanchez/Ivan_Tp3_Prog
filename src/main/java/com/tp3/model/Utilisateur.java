@@ -1,5 +1,6 @@
 package com.tp3.model;
 
+import com.tp3.dto.ClientDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -27,5 +28,9 @@ public class Utilisateur {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
+    }
+
+    public ClientDto toClient(String firstName, String lastName, String address, String phoneNumber, String email){
+        return new ClientDto(firstName,lastName,address,phoneNumber,email);
     }
 }

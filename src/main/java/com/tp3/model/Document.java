@@ -1,6 +1,5 @@
 package com.tp3.model;
 
-import com.tp3.dto.document.DocumentDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

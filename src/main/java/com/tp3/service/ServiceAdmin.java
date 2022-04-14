@@ -1,6 +1,7 @@
 package com.tp3.service;
 
-import com.tp3.dto.document.DocumentDto;
+import com.tp3.dto.ClientDto;
+import com.tp3.dto.DocumentDto;
 import com.tp3.model.*;
 import com.tp3.repository.DocumentRepository;
 import com.tp3.repository.UserRepository;
@@ -22,14 +23,17 @@ public class ServiceAdmin {
                 case "GESTIONNAIRE":
                     user = new Gestionnaire(firstName,lastName,address,phoneNumber,email,dateEmbauche);
                     break;
-                case "CLIENT":
-                    user = new Client(firstName,lastName,address,phoneNumber,email);
-                    break;
                 case "PREPOSE":
                     user = new Prepose(firstName,lastName,address,phoneNumber,email,dateEmbauche);
                     break;
             }
             return userRepository.save(user);
+        }
+
+        public ClientDto addClient(String firstName, String lastName, String address, String phoneNumber, String email){
+            Client client = new Client(firstName,lastName,address,phoneNumber,email);
+            userRepository.save(client);
+            return new ClientDto(firstName,lastName,address,phoneNumber,email);
         }
 
         public DocumentDto addDocumentToBiblio(String titre, int anneePub, String auteur , String editeur, String maisonDePublication, String type, String duration, int nbrExemplaires, String typeDocument) {
