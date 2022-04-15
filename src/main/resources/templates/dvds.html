@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dvds</title>
+</head>
+<body>
+<h1>Dvds</h1>
+<table>
+    <thead>
+    <th>Titre</th>
+    <th>Anne Publication</th>
+    <th>Auteur</th>
+    <th>Nombre Exemplaires</th>
+    <th>Duration</th>
+    <th>Type</th>
+    <th></th>
+    </thead>
+    <tbody>
+    <th:block th:each="dvd, stat : ${dvds}">
+        <tr>
+            <td th:text="${dvd.getTitre}">Titre</td>
+            <td th:text="${dvd.getAnneePublication()}">Titre</td>
+            <td th:text="${dvd.getAuteur()}">Titre</td>
+            <td th:text="${dvd.getNbrExemplaire()}">Titre</td>
+            <td th:text="${dvd.getDuration()}">Titre</td>
+            <td th:text="${dvd.getType()}">Titre</td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+<a th:href="@{'/'}">Retour page index</a><br>
+<a th:href="@{'/choixdocument'}">Nouveau document</a>
+</body>
+</html>

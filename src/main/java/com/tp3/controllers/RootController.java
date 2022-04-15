@@ -1,8 +1,8 @@
 package com.tp3.controllers;
 
-import com.tp3.dto.ClientDto;
-import com.tp3.dto.DocumentDto;
+import com.tp3.dto.*;
 import com.tp3.service.ServiceAdmin;
+import com.tp3.service.ServiceClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,14 +12,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
+
 @Controller
 public class RootController {
     Logger logger = LoggerFactory.getLogger(RootController.class);
 
     private ServiceAdmin serviceAdmin;
-    private String choixTypeDocument;
+    private ServiceClient serviceClient;
+    private String choix;
 
-    public RootController(ServiceAdmin serviceAdmin) {
+    public RootController(ServiceAdmin serviceAdmin, ServiceClient serviceClient) {
+        this.serviceClient = serviceClient;
         this.serviceAdmin = serviceAdmin;
     }
 
@@ -33,9 +37,9 @@ public class RootController {
         return "/choixdocument";
     }
 
-    @GetMapping(value={ "/ajoutdocument"})
+    @GetMapping(value={ "/ajoutDocument"})
     public String getAjoutDocument(Model model, @ModelAttribute("choix") String choix, @ModelAttribute("document") DocumentDto documentDto) {
-        choixTypeDocument = choix.toString();
+        this.choix = choix.toString();
         switch (choix){
             case "CD":
                 return "/cd";
@@ -49,13 +53,13 @@ public class RootController {
     }
 
 
-    @PostMapping(value = { "/ajoutdocument"})
-    public RedirectView postDocument(@ModelAttribute(value = "document") DocumentDto documentDto,
+    @PostMapping(value = { "/ajoutDocument"})
+    public RedirectView profPost(@ModelAttribute(value = "document") DocumentDto documentDto,
                                  BindingResult errors,
                                  RedirectAttributes redirectAttributes) {
         var document = serviceAdmin.addDocumentToBiblio(documentDto.getTitre(),documentDto.getAnneePublication(),
                 documentDto.getAuteur(), documentDto.getEditeur(), documentDto.getMaisonDePublication(),
-                documentDto.getType(),documentDto.getDuration(),documentDto.getNbrExemplaire(),choixTypeDocument);
+                documentDto.getType(),documentDto.getDuration(),documentDto.getNbrExemplaire(),choix);
         redirectAttributes.addFlashAttribute("document", documentDto);
         RedirectView redirectView = new RedirectView();
         redirectView.setContextRelative(true);
@@ -69,7 +73,6 @@ public class RootController {
         return "/client";
     }
 
-
     @PostMapping(value = { "/ajoutclient"})
     public RedirectView postClient(@ModelAttribute(value = "client") ClientDto clientDto,
                                  BindingResult errors,
@@ -81,4 +84,36 @@ public class RootController {
         redirectView.setUrl("/");
         return redirectView;
     }
+
+
+    @GetMapping(value={ "/choixdoc"})
+    public String getChoixDoc(Model model) {
+        DtoChoix dtoChoix = new DtoChoix();
+        model.addAttribute("info", dtoChoix);
+        return "/choixdoc";
+    }
+
+    @GetMapping(value={ "/recherchedocument"})
+    public String choixRecherche(Model model, @ModelAttribute(value = "info") DtoChoix dtoChoix) {
+        String choix = dtoChoix.getChoix();
+        model.addAttribute("livre", new LivreDto());
+        model.addAttribute("dvd", new DvdDto());
+        model.addAttribute("cd", new CdDto());
+        List<LivreDto> livres =  serviceClient.findLivres(dtoChoix.getCritere(),dtoChoix.getData());
+        model.addAttribute("livres", livres);
+        List<DvdDto> dvdDtos = serviceClient.findDvds(dtoChoix.getChoix(),dtoChoix.getData());
+        model.addAttribute("dvds", dvdDtos);
+        List<CdDto> cdDtos = serviceClient.findCds(dtoChoix.getChoix(),dtoChoix.getData());
+        model.addAttribute("cds", cdDtos);
+        switch (choix){
+            case "LIVRE":
+                return "livres";
+            case "DVD":
+                return "dvds";
+            case "CD":
+                return "cds";
+        }
+        return "/";
+    }
+
 }

@@ -32,6 +32,13 @@ public class DocumentDto {
     public DocumentDto() {
     }
 
+    public DocumentDto(int id, String titre, int anneePublication, String auteur, int nbrExemplaire) {
+        this.id = id;
+        this.titre = titre;
+        this.anneePublication = anneePublication;
+        this.auteur = auteur;
+        this.nbrExemplaire = nbrExemplaire;
+    }
 
     public Livre toLivre(String titre, int anneePublication, String auteur, int nbrExemplaire) {
         Livre livre = new Livre (titre, anneePublication, auteur, nbrExemplaire, editeur , maisonDePublication , type);

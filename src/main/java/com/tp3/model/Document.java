@@ -8,16 +8,17 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private long idDocument;
+    private int idDocument;
 
     private String titre;
     private int anneePublication;
     private String auteur;
     private int nbrExemplaire;
+    private String categorie;
 
     public Document(String titre, int anneePub, String auteur, int nbrExemplaire) {
         this.titre = titre;

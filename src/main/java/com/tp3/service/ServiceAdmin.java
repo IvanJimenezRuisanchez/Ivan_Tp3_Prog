@@ -6,11 +6,11 @@ import com.tp3.model.*;
 import com.tp3.repository.DocumentRepository;
 import com.tp3.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
-@Component
+@Service
 public class ServiceAdmin {
         @Autowired
         private UserRepository userRepository;
@@ -36,20 +36,20 @@ public class ServiceAdmin {
             return new ClientDto(firstName,lastName,address,phoneNumber,email);
         }
 
-        public DocumentDto addDocumentToBiblio(String titre, int anneePub, String auteur , String editeur, String maisonDePublication, String type, String duration, int nbrExemplaires, String typeDocument) {
-            Document document = null;
-            switch (typeDocument.toUpperCase()) {
-                case "LIVRE":
-                    document = new Livre(titre,anneePub,auteur,nbrExemplaires,editeur,maisonDePublication,type);
-                    break;
-                case "CD":
-                    document = new Cd(titre, anneePub, auteur, nbrExemplaires,duration, type);
-                    break;
-                case "DVD":
-                    document = new Dvd(titre, anneePub, auteur,nbrExemplaires, duration, type);
-                    break;
-            }
-            documentRepository.save(document);
-            return new DocumentDto(titre,anneePub,auteur,nbrExemplaires,duration,type,editeur,maisonDePublication);
+    public DocumentDto addDocumentToBiblio(String titre, int anneePub, String auteur , String editeur, String maisonDePublication, String type, String duration, int nbrExemplaires, String typeDocument) {
+        Document document = null;
+        switch (typeDocument.toUpperCase()) {
+            case "LIVRE":
+                document = new Livre(titre,anneePub,auteur,nbrExemplaires,editeur,maisonDePublication,type);
+                break;
+            case "CD":
+                document = new Cd(titre, anneePub, auteur, nbrExemplaires,duration, type);
+                break;
+            case "DVD":
+                document = new Dvd(titre, anneePub, auteur,nbrExemplaires, duration, type);
+                break;
         }
+        documentRepository.save(document);
+        return new DocumentDto(titre,anneePub,auteur,nbrExemplaires,duration,type,editeur,maisonDePublication);
+    }
 }

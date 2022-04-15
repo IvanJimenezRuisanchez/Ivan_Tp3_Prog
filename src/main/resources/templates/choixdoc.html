@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
+    <title>CRUD Prof</title>
+</head>
+<body>
+<form action="#" th:action="@{/recherchedocument}" th:object="${info}" method="get">
+    <table border="1">
+        <tr>
+            <label for="site-search">Recherche:</label>
+            <input type="search" id="site-search" name="q" th:field="*{data}"></tr>
+        <tr>
+        <tr>
+            <label for="choixType">Choix d'un type de document:</label>
+
+            <select id="choixType" name="choixType" th:field="*{choix}">
+                <option value="CD">CD</option>
+                <option value="DVD">DVD</option>
+                <option value="LIVRE">LIVRE</option>
+            </select>
+        </tr>
+        <tr>
+            <label for="choixCritere">Choix d'un type de document:</label>
+
+            <select id="choixCritere" name="choixCritere" th:field="*{critere}">
+                <option value="AUTEUR">AUTEUR</option>
+                <option value="TITRE">TITRE</option>
+                <option value="CATEGORIE">CATEGORIE</option>
+                <option value="ANNEE">ANNE DE PUBLICATION</option>
+            </select>
+        </tr>
+            <td><input type="submit" value="Ennvoyer" /></td>
+        </tr>
+    </table>
+</form>
+<a th:href="@{'/'}">Retour page index</a><br>
+</body>
+</html>

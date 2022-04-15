@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prof</title>
+</head>
+<body>
+<h1>Page Prof</h1>
+<table>
+    <thead>
+    <th>Nom</th>
+    <th>Prenom</th>
+    <th>Anniversaire</th>
+    <th>Actif</th>
+    </thead>
+    <tbody>
+    <th:block th:each="document, stat : ${documents}">
+        <tr>
+            <td th:text="${prof.getLastName()}">Lacou</td>
+            <td th:text="${prof.getFirstName()}">Francois</td>
+            <td th:text="${prof.getDateOfBirth()}">Lacou</td>
+            <td th:text="${prof.isActive()}">true</td>
+        </tr>
+    </th:block>
+    <a th:href="@{'/profcreate'}">Nouveau professeur</a>
+    </tbody>
+</table>
+</body>
+</html>
