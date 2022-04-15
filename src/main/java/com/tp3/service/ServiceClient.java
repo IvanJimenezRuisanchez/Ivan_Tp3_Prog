@@ -121,7 +121,17 @@ public class ServiceClient{
         Client client = clientRepository.findById(idUser).get();
         int nbrExemplaires = document.getNbrExemplaire();
         LocalDate dateFin = null;
-        dateFin= debut.plusWeeks(3);
+        switch (document.getClass().getSimpleName().toUpperCase()){
+            case "LIVRE":
+                dateFin = debut.plusDays(21);
+                break;
+            case "CD":
+                dateFin = debut.plusDays(14);
+                break;
+            case "DVD":
+                dateFin = debut.plusDays(7);
+                break;
+        }
         document.setNbrExemplaire(nbrExemplaires-1);
         documentRepository.save(document);
         Empreunt empreunt = new Empreunt(debut, dateFin, "En cours");
