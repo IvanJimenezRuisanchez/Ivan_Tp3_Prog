@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Empreunt</title>
+</head>
+<body>
+<form action="#" th:action="@{'/empreunter/'+ ${id}}" th:object="${empreunt}"  method="post">
+    <table border="1">
+        <tr>
+            <h1>Empreunt</h1>
+        </tr>
+        <tr>
+            <td><label>Utilisateur Reponsable:</label></td>
+            <td><input type="text" th:field="*{idUser}"/></td>
+        </tr>
+        <tr>
+            <td><label>Debut empreunt:</label></td>
+            <td><input type="date" th:field="*{dateDebut}"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Empreunter" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface CdRepository extends JpaRepository<Cd, Long> {
+public interface CdRepository extends JpaRepository<Cd, Integer> {
     @Query(value = "SELECT cd from Cd cd WHERE upper(cd.titre) = :data")
     List<Cd> getCdByTitre(@Param("data") String data);
 

@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface DvdRepository extends JpaRepository<Dvd, Long> {
+public interface DvdRepository extends JpaRepository<Dvd, Integer> {
     @Query(value = "SELECT d from Dvd d WHERE upper(d.titre) = :data")
     List<Dvd> getDvdByTitre(@Param("data") String data);
 

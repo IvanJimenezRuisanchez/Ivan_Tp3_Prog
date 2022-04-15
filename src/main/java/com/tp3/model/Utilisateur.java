@@ -10,11 +10,11 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long idUser;
+    private int idUser;
 
     private String firstName;
     private String lastName;

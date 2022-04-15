@@ -7,8 +7,8 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface LivreRepository extends JpaRepository<Livre, Long> {
-    @Query(value = "SELECT l from Livre l WHERE upper(l.titre) = :data")
+public interface LivreRepository extends JpaRepository<Livre, Integer> {
+    @Query(value = "SELECT l from Livre l  JOIN  Document d  ON l.idDocument = d.idDocument WHERE upper(d.titre) = :data")
     List<Livre> getLivreByTitre(@Param("data") String data);
 
     @Query(value = "SELECT l from Livre l WHERE upper(l.auteur) = :data")

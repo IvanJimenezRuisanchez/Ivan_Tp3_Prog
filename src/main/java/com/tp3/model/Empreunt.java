@@ -13,17 +13,17 @@ import java.time.LocalDate;
 public class Empreunt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idEmpreunt;
+    private int idEmpreunt;
 
     private LocalDate dateDebut;
     private LocalDate dateFin;
     private String status;
 
-    public Empreunt(Client user , Document document , LocalDate dateFin, String status) {
+    public Empreunt(LocalDate dateDebut,LocalDate dateFin ,String status) {
         this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
         this.status = status;
         this.dateDebut = LocalDate.now();
+        this.dateFin = dateFin;
     }
 
     @ManyToOne(cascade = CascadeType.MERGE)

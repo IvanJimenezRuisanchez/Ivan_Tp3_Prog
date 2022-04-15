@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Documents</title>
+</head>
+<body>
+<h1>Documents</h1>
+
+<table style="background-color: royalblue">
+    <h1>DVD</h1>
+    <thead>
+    <th>Titre</th>
+    <th>Anne Publication</th>
+    <th>Auteur</th>
+    <th>Nombre Exemplaires</th>
+    <th>Duration</th>
+    <th>Type</th>
+    <th></th>
+    </thead>
+    <tbody>
+    <th:block th:each="dvd, stat : ${dvds}">
+        <tr>
+            <td th:text="${dvd.getTitre}">Titre</td>
+            <td th:text="${dvd.getAnneePublication()}">Titre</td>
+            <td th:text="${dvd.getAuteur()}">Titre</td>
+            <td th:text="${dvd.getNbrExemplaire()}">Titre</td>
+            <td th:text="${dvd.getDuration()}">Titre</td>
+            <td th:text="${dvd.getType()}">Titre</td>
+            <td> <a th:href="@{'/empreunter/'+ ${dvd.getId()}}">
+                <button type="button">Empreunter</button>
+            </a></td>
+            <td> <a th:href="@{'/retourner/'+ ${dvd.getId()}}">
+                <button type="button">Retourner</button>
+            </a></td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+<table style="background-color: gray">
+    <h1>CD</h1>
+    <thead>
+    <th>Titre</th>
+    <th>Anne Publication</th>
+    <th>Auteur</th>
+    <th>Nombre Exemplaires</th>
+    <th>Duration</th>
+    <th>Type</th>
+    <th></th>
+    </thead>
+    <tbody>
+    <th:block th:each="cd, stat : ${cds}">
+        <tr>
+            <td th:text="${cd.getTitre}">Titre</td>
+            <td th:text="${cd.getAnneePublication()}">Titre</td>
+            <td th:text="${cd.getAuteur()}">Titre</td>
+            <td th:text="${cd.getNbrExemplaire()}">Titre</td>
+            <td th:text="${cd.getDuration()}">Titre</td>
+            <td th:text="${cd.getType()}">Titre</td>
+            <td> <a th:href="@{'/empreunter/'+ ${cd.getId()}}">
+                <button type="button">Empreunter</button>
+            </a></td>
+            <td> <a th:href="@{'/retourner/'+ ${cd.getId()}}">
+                <button type="button">Retourner</button>
+            </a></td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+<table style="background-color: aqua">
+    <h1>LIVRE</h1>
+    <thead>
+    <th>Titre</th>
+    <th>Anne Publication</th>
+    <th>Auteur</th>
+    <th>Nombre Exemplaires</th>
+    <th>Editeur</th>
+    <th>Maison de Publication</th>
+    <th>Type</th>
+    <th></th>
+    </thead>
+    <tbody>
+    <th:block th:each="livre, stat : ${livres}">
+        <tr>
+            <td th:text="${livre.getTitre()}">Titre</td>
+            <td th:text="${livre.getAnneePublication()}">Titre</td>
+            <td th:text="${livre.getAuteur()}">Titre</td>
+            <td th:text="${livre.getNbrExemplaire()}">Titre</td>
+            <td th:text="${livre.getEditeur()}">Titre</td>
+            <td th:text="${livre.getMaisonDePublication()}">Titre</td>
+            <td th:text="${livre.getType()}">Titre</td>
+            <td> <a th:href="@{'/empreunter/'+ ${livre.getId()}}">
+                <button type="button">Empreunter</button>
+            </a></td>
+            <td> <a th:href="@{'/retourner/'+ ${livre.getId()}}">
+                <button type="button">Retourner</button>
+            </a></td>
+    </th:block>
+    </tbody>
+</table>
+<a th:href="@{'/'}">Retour page index</a><br>
+<a th:href="@{'/choixdocument'}">Nouveau document</a>
+</body>
+</html>

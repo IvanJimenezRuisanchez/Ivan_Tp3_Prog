@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Empreunt</title>
+</head>
+<body>
+<form action="#" th:action="@{'/retourner/'+ ${id}}" th:object="${retour}"  method="post">
+    <table border="1">
+        <tr>
+            <h1>Empreunt</h1>
+        </tr>
+        <tr>
+            <td><label>Utilisateur Reponsable:</label></td>
+            <td><input type="text" th:field="*{idUser}"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Retourner" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

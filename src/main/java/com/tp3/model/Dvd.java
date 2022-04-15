@@ -19,4 +19,8 @@ public class Dvd extends Document {
         this.duration = duration;
         this.type = type;
     }
+
+    public Integer getDureeEmpreunt(){
+        return 1;
+    }
 }

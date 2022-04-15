@@ -22,4 +22,8 @@ public class Livre extends Document{
         this.maisonDePublication = maisonDePublication;
         this.type = type;
     }
+
+    public Integer getDureeEmpreunt(){
+        return 3;
+    }
 }

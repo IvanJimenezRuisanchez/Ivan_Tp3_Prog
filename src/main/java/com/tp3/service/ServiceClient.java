@@ -8,6 +8,7 @@ import com.tp3.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,40 +27,16 @@ public class ServiceClient{
     private DvdRepository dvdRepository;
     @Autowired
     private LivreRepository livreRepository;
+    @Autowired
+    private ClientRepository clientRepository;
 
-    public Empreunt empreunter(long idUser, long idDocument) {
-        Document document = documentRepository.findById(idDocument).get();
-        String typeDocument = document.getClass().getName().toUpperCase();
-        int nbrExemplaires = document.getNbrExemplaire();
-        LocalDate dateFin = null;
-
-        if(nbrExemplaires > 0) {
-            switch (typeDocument) {
-                case "LIVRE":
-                    dateFin = LocalDate.now().plusWeeks(3);
-                    break;
-                case "CD":
-                    dateFin = LocalDate.now().plusWeeks(2);
-                    break;
-                case "DVD":
-                    dateFin = LocalDate.now().plusWeeks(1);
-                    break;
-            }
-            Empreunt empreunt = new Empreunt((Client) userRepository.findById(idUser).get(), documentRepository.findById(idDocument).get(),
-                    dateFin, "En cours");
-            document.setNbrExemplaire(nbrExemplaires-1);
-            documentRepository.save(document);
-            return empreuntRepository.save(empreunt);
-        }
-        return null;
-    }
 
     public List<LivreDto> findLivres(String critereRecherche, String data){
         List<Livre> livre = new ArrayList<>();
         data = data.toUpperCase();
         switch (critereRecherche.toUpperCase()){
             case "TITRE":
-                livre =  livreRepository.getLivreByTitre(data);
+                livre =  livreRepository.getLivreAuteur(data);
                 break;
             case "AUTEUR":
                 livre =  livreRepository.getLivreAuteur(data);
@@ -140,4 +117,42 @@ public class ServiceClient{
         }
         return dvdDtos;
     }
+
+    public List<LivreDto> getAllLivres(){
+        return toLivreDTOList(livreRepository.findAll());
+    }
+
+    public List<DvdDto> getAllDvds(){
+        return toDvdDTOList(dvdRepository.findAll());
+    }
+
+    public List<CdDto> getAllCds(){
+        return toCdDTOList(cdRepository.findAll());
+    }
+
+
+    public void empreunter(int idUser, int idDocument,LocalDate debut) {
+        Document document = documentRepository.findById(idDocument).get();
+        Client client = clientRepository.findById(idUser).get();
+        int nbrExemplaires = document.getNbrExemplaire();
+        LocalDate dateFin = null;
+        dateFin= debut.plusWeeks(3);
+        document.setNbrExemplaire(nbrExemplaires-1);
+        documentRepository.save(document);
+        Empreunt empreunt = new Empreunt(debut, dateFin, "En cours");
+        empreunt.addClientResponsable(client);
+        empreunt.addDocumentToEmpreunt(document);
+        empreuntRepository.save(empreunt);
+    }
+
+    public void retourner(int idUser, int idDocument) {
+        Empreunt empreunt = empreuntRepository.getEmpreuntByClientAndDocument(idUser,idDocument);
+        empreunt.setStatus("Retourner");
+        Document document = documentRepository.findById(idDocument).get();
+        int nbExemplaires = document.getNbrExemplaire();
+        document.setNbrExemplaire(nbExemplaires+1);
+        empreuntRepository.save(empreunt);
+        documentRepository.save(document);
+    }
+
 }
