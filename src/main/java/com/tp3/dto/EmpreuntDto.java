@@ -12,12 +12,13 @@ public class EmpreuntDto {
     private String status;
     private int idUser;
     private int idDocument;
-    public EmpreuntDto(int idEmpreunt, String dateDebut, String dateFin, String status, int idUser) {
+    public EmpreuntDto(int idEmpreunt,int idDocument,  String dateDebut, String dateFin, String status, int idUser) {
         this.idEmpreunt = idEmpreunt;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.status = status;
         this.idUser = idUser;
+        this.idDocument = idDocument;
     }
 
     public EmpreuntDto() {

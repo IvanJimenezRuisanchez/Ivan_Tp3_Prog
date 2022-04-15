@@ -1,8 +1,5 @@
 package com.tp3.service;
-import com.tp3.dto.CdDto;
-import com.tp3.dto.DocumentDto;
-import com.tp3.dto.DvdDto;
-import com.tp3.dto.LivreDto;
+import com.tp3.dto.*;
 import com.tp3.model.*;
 import com.tp3.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,18 +115,6 @@ public class ServiceClient{
         return dvdDtos;
     }
 
-    public List<LivreDto> getAllLivres(){
-        return toLivreDTOList(livreRepository.findAll());
-    }
-
-    public List<DvdDto> getAllDvds(){
-        return toDvdDTOList(dvdRepository.findAll());
-    }
-
-    public List<CdDto> getAllCds(){
-        return toCdDTOList(cdRepository.findAll());
-    }
-
 
     public void empreunter(int idUser, int idDocument,LocalDate debut) {
         Document document = documentRepository.findById(idDocument).get();
@@ -153,6 +138,32 @@ public class ServiceClient{
         document.setNbrExemplaire(nbExemplaires+1);
         empreuntRepository.save(empreunt);
         documentRepository.save(document);
+    }
+
+    public List<EmpreuntDto> getAllEmpreuntByUser(int idUser){
+        return  toEmpreuntDTOList(empreuntRepository.getEmpreuntsByIdUser(idUser));
+    }
+
+    private List<EmpreuntDto> toEmpreuntDTOList(List<Empreunt> empreunts){
+        List<EmpreuntDto> empreuntDtos = new ArrayList<>();
+        for(Empreunt empreunt : empreunts){
+            empreuntDtos.add(new EmpreuntDto(empreunt.getIdEmpreunt(),empreunt.getDocument().getIdDocument(),empreunt.getDateDebut().toString(),empreunt.getDateFin().toString(),
+                    empreunt.getStatus(),empreunt.getClient().getIdUser()));
+        }
+        return empreuntDtos;
+    }
+
+
+    public List<LivreDto> getAllLivres(){
+        return toLivreDTOList(livreRepository.findAll());
+    }
+
+    public List<DvdDto> getAllDvds(){
+        return toDvdDTOList(dvdRepository.findAll());
+    }
+
+    public List<CdDto> getAllCds(){
+        return toCdDTOList(cdRepository.findAll());
     }
 
 }

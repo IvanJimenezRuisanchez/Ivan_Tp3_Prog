@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Empreunt</title>
+</head>
+<body>
+<form action="#"th:action="@{'/getEmpreunts/'+ ${empreunt.getIdUser()}}" th:object="${empreunt}" method="get">
+    <table border="1">
+        <tr>
+            <h1>Empreunts</h1>
+        </tr>
+        <tr>
+            <td><label>Utilisateur:</label></td>
+            <td><input type="text" th:field="*{idUser}"/></td>
+        </tr>
+        <td><button type="submit">Suivant</button></td>
+    </table>
+</form>
+</body>
+</html>

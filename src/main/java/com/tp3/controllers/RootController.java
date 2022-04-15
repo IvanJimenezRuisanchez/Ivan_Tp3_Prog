@@ -1,5 +1,6 @@
 package com.tp3.controllers;
 
+import com.sun.tools.jconsole.JConsoleContext;
 import com.tp3.dto.*;
 import com.tp3.service.ServiceAdmin;
 import com.tp3.service.ServiceClient;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.List;
@@ -168,6 +170,21 @@ public class RootController {
         redirectView.setContextRelative(true);
         redirectView.setUrl("/empreunt");
         return redirectView;
+    }
+
+    @GetMapping(value = "/getEmpreuntsById")
+    public String empreuntByIdUser(Model model) {
+        model.addAttribute("empreunt", new EmpreuntDto());
+        return "/empreuntform";
+    }
+
+    @GetMapping(value = "/getEmpreunts/{id}")
+    public String empreunts(@PathVariable String id,Model model, @ModelAttribute("empreunt") EmpreuntDto empreuntDto) {
+        System.out.println("entre");
+        List<EmpreuntDto> empreuntDtos = serviceClient.getAllEmpreuntByUser(empreuntDto.getIdUser());
+        model.addAttribute("empreunts", empreuntDtos);
+        model.addAttribute("empreunt", new EmpreuntDto());
+        return "/empreunts";
     }
 
 }

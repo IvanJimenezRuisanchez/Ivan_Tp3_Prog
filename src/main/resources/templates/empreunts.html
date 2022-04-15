@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Empreunts</title>
+</head>
+<body>
+<h1>Empreunts</h1>
+<table>
+    <thead>
+    <th>Document empreunt </th>
+    <th>Date de debut de l'empreunt</th>
+    <th>Date de fin de l'empreunt</th>
+    <th>Status de l'empreunt</th>
+    <th></th>
+    </thead>
+    <tbody>
+    <th:block th:each="empreunt, stat : ${empreunts}">
+        <tr>
+            <td th:text="${empreunt.getIdDocument()}">Document empreunter</td>
+            <td th:text="${empreunt.getDateDebut()}">Date de debut de l'empreunt</td>
+            <td th:text="${empreunt.getDateFin()}">Date de fin de l'empreunt</td>
+            <td th:text="${empreunt.getStatus()}">Status de l'empreunt</td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+<a th:href="@{'/'}">Retour page index</a><br>
+</body>
+</html>

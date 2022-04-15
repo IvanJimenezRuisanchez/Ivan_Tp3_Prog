@@ -11,4 +11,7 @@ import java.util.List;
 public interface EmpreuntRepository extends JpaRepository<Empreunt, Integer> {
     @Query(value = "SELECT e from Empreunt e WHERE e.client.idUser = :user AND e.document.idDocument = :document")
     Empreunt getEmpreuntByClientAndDocument(@Param("user") int idUser, @Param("document") int idDocument);
+
+    @Query(value = "SELECT e from Empreunt e WHERE e.client.idUser = :user")
+    List<Empreunt> getEmpreuntsByIdUser(@Param("user") int idUser);
 }
